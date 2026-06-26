@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="WinUI_installer.Views.WelcomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinUI_installer.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:WinUI_installer.ViewModels"
+    xmlns:services="using:WinUI_installer.Services"
+    d:DataContext="{d:DesignInstance Type=vm:InstallerViewModel}"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <services:EnumToStringConverter x:Key="EnumToStringConverter" />
+        </ResourceDictionary>
+    </Page.Resources>
+    
+    <Grid Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border 
+            Margin="10">
+            <TextBlock 
+                HorizontalAlignment="Left"
+                FontWeight="Bold"
+                FontSize="18"
+                Text="Welcome to the App Setup" />
+        </Border>
+        
+        <Grid
+            Padding="10"
+            Margin="10"
+            Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ComboBox 
+                VerticalAlignment="Top"
+                Header="Select the setup language" 
+                PlaceholderText="Language"
+                ItemsSource="{Binding Languages}"
+                SelectedItem="{Binding Language, Mode=TwoWay, Converter={StaticResource EnumToStringConverter}}">
+            </ComboBox>
+            <StackPanel
+                VerticalAlignment="Bottom">
+                <CheckBox 
+                    Content="Create shortcuts" 
+                    IsChecked="{Binding CreateShortcut, Mode=TwoWay}" /> 
+                <CheckBox 
+                    Content="Create uninstall.bat" 
+                    IsChecked="{Binding CreateUninstallBat, Mode=TwoWay}" />                 
+            </StackPanel>
+        </Grid>
+        <StackPanel
+            Padding="10"
+            Grid.Row="4"
+            Orientation="Horizontal"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Right"
+            Spacing="10">
+            <Button 
+                Click="OnNextButtonClicked"
+                Content="Next" />
+            <Button 
+                Click="OnCancelButtonClick"
+                Content="Cancel" />
+        </StackPanel>
+    </Grid>
+</Page>

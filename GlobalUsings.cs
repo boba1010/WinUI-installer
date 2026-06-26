@@ -1,0 +1,12 @@
+﻿global using Microsoft.UI.Xaml;
+global using Microsoft.UI.Xaml.Controls;
+global using Microsoft.UI.Xaml.Data;
+global using Microsoft.UI.Xaml.Input;
+global using System;
+global using System.Collections.Generic;
+global using System.IO;
+global using System.Linq;
+global using Microsoft.UI.Windowing;
+global using WinRT.Interop;
+global using Windows.Graphics;
+global using Microsoft.UI;
