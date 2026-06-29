@@ -7,7 +7,6 @@
         public string InstallPath { get; set; }
         public IProgress<InstallProgress> Progress { get; set; }
         public bool CreateUninstallBat { get; set; }
-        public bool LaunchAfterInstall { get; set; }
         public bool CreateShortcut { get; set; }
     }
 }

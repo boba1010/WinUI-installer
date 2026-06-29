@@ -1,15 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using WinUI_installer.InstallerCore;
-using WinUI_installer.Models;
 using WinUI_installer.Services;
 
 namespace WinUI_installer.ViewModels
 {
-    public partial class InstallerViewModel(IFileDialogService fileDialogService, PrepareInstallerAPI prepareInstallerAPI) : ObservableObject
+    public partial class InstallerViewModel(IFileDialogService fileDialogService) : ObservableObject
     {
+        private static InstallData InstallData { get; set; }
+
         [ObservableProperty]
         public partial bool CreateShortcut { get; set; } = true;
 
@@ -20,7 +20,11 @@ namespace WinUI_installer.ViewModels
         public partial bool CreateUninstallBat { get; set; } = true;
 
         [ObservableProperty]
-        public partial string FolderPath { get; set; } = "C:\\Program Files\\App";
+        public partial string FolderPath { get; set; } = InstallerDataInitializeService.DefaultPath;
+        partial void OnFolderPathChanged(string value)
+        {
+            InstallerDataInitializeService.DefaultPath = value;
+        }
 
         [ObservableProperty]
         public partial Language Language { get; set; }
@@ -39,32 +43,33 @@ namespace WinUI_installer.ViewModels
             FolderPath = await fileDialogService.PickFolderAsync();
         }
 
-        private InstallerEngine installer = new();
-        private InstallData InstallData { get; set; }
+        private readonly InstallerEngine installer = new();
+        
         public async Task PrepareFiles()
         {
-            Progress<InstallProgress> progress = new Progress<InstallProgress>(update =>
+            Progress<InstallProgress> progress = new(update =>
             {
                 StatusMessage = update.StatusMessage;
                 ProgressPrecentage = update.ProgressPrecentage;
             });
 
-            InstallData = await prepareInstallerAPI.PrepareInstallerDataAsync(
+            InstallData = await InstallerDataInitializeService.PrepareInstallerDataAsync(
                 createShortcut: CreateShortcut,
                 createUninstallBat: CreateUninstallBat,
-                launchAfterInstall: LaunchAfterInstall,
                 progress: progress);
             await installer.PrepareAsync(InstallData);
         }
 
         [RelayCommand]
-        public void InstallEnd()
+        public void EndInstall()
         {
-            if (InstallData.LaunchAfterInstall)
+            if (LaunchAfterInstall)
             {
                 Process.Start(new ProcessStartInfo
                 {
                     FileName = Path.Combine(InstallData.InstallPath, InstallData.AppExeName),
+                    CreateNoWindow = false,
+                    CreateNewProcessGroup = true,
                 });
             }
             Environment.Exit(0);

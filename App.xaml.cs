@@ -34,7 +34,6 @@ namespace WinUI_installer
             services.AddSingleton<InstallerViewModel>();
             services.AddSingleton<IFileDialogService, FileDialogService>();
             services.AddSingleton<MainWindow>();
-            services.AddSingleton<PrepareInstallerAPI>();
         }
 
         /// <summary>

@@ -10,3 +10,7 @@ global using Microsoft.UI.Windowing;
 global using WinRT.Interop;
 global using Windows.Graphics;
 global using Microsoft.UI;
+global using Microsoft.Extensions.DependencyInjection;
+global using WinUI_installer.ViewModels;
+global using System.Threading.Tasks;
+global using WinUI_installer.Models;

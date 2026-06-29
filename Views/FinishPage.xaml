@@ -32,9 +32,10 @@
             Grid.Row="1"
             ColumnSpacing="5"
             VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+            </Grid.RowDefinitions>
             <TextBlock 
-                Grid.ColumnSpan="2"
-                Grid.Row="1"
                 Text="{Binding StatusMessage}" />
             <CheckBox
                 Content="Launch after install" 
@@ -49,7 +50,7 @@
             HorizontalAlignment="Right"
             Spacing="10">
             <Button 
-                Command="{Binding InstallEndCommand}"
+                Command="{Binding EndInstallCommand}"
                 Content="Finish" />
         </StackPanel>
     </Grid>
