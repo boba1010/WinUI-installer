@@ -11,6 +11,9 @@ A lightweight, generic installer built using WinUI 3 for modern, native Windows 
   <img src="https://github.com/user-attachments/assets/aa9dfc0f-295f-4aa6-b53c-d7e26f19b13b" width="45%" alt="Custom UAC-Safe Folder Dialog" />
   <img src="https://github.com/user-attachments/assets/e080b88e-f0f9-4091-af6a-7233197a4581" width="45%" alt="Installation Complete Screen" />
 </p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/867b73d5-357b-4dd1-b8bd-2ef0a574a63a" width="45%" alt="Progress Screen" />
+</p>
 
 ---
 
